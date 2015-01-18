@@ -1,0 +1,50 @@
+{
+    "variables": {
+        "region"        : "",
+        "source_ami"    : "",
+        "build_subnet"  : "",
+        "build_vpc"     : "",
+        "build_sg"      : "",
+        "www_dir"     : ""
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "region": "{{user `region`}}",
+        "source_ami": "{{user `source_ami`}}",
+        "instance_type": "t2.micro",
+        "subnet_id": "{{user `build_subnet`}}",
+        "vpc_id": "{{user `build_vpc`}}",
+        "security_group_id": "{{user `build_sg`}}",
+        "associate_public_ip_address": "false",
+        "ssh_username": "ubuntu",
+        "ssh_private_ip": "true",
+        "ssh_timeout": "30s",
+        "ami_name": "demo {{timestamp}}"
+    }],
+    "provisioners": [
+    {
+        "type": "shell",
+        "inline": [
+            "sleep 10",
+            "mkdir -p /tmp/www"
+        ]
+    },
+    {
+        "type": "file",
+        "source": "{{user `www_dir`}}",
+        "destination": "/tmp/www"
+    },
+    {
+        "type": "shell",
+        "inline": [
+            "sudo apt-get update",
+            "sudo apt-get install -y apache2 php5 libapache2-mod-php5 php5-curl",        
+            "sudo rm /var/www/html/*",
+            "cd /var/www/html",
+            "sudo sh -c 'curl -sS https://getcomposer.org/installer | php'",
+            "sudo mv /tmp/www/* /var/www/html",
+            "sudo php composer.phar install",
+            "sudo service apache2 restart",
+        ]
+    }]
+}
