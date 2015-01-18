@@ -38,13 +38,13 @@
         "type": "shell",
         "inline": [
             "sudo apt-get update",
-            "sudo apt-get install -y apache2 php5 libapache2-mod-php5 php5-curl",        
+            "sudo apt-get install -y apache2 php5 libapache2-mod-php5 php5-curl php5-mysql",
             "sudo rm /var/www/html/*",
             "cd /var/www/html",
             "sudo sh -c 'curl -sS https://getcomposer.org/installer | php'",
             "sudo mv /tmp/www/* /var/www/html",
             "sudo php composer.phar install",
-            "sudo service apache2 restart",
+            "sudo service apache2 restart"
         ]
     }]
 }
