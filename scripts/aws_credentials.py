@@ -1,7 +1,12 @@
 #!/usr/bin/python
+
 import boto
-from boto.dynamodb2.table import Table
 import argparse
+
+def error(context,details):
+  print context
+  print(details)
+  exit(1)
 
 
 def stscredentials(args):
@@ -44,43 +49,14 @@ def getcredentials(args):
   return kwparams
 
 
-def dynaconnect(args):
-  kwparams=getcredentials(args)
-  try:
-    c=boto.dynamodb2.connect_to_region(args.region,**kwparams)
-  except boto.provider.ProfileNotFoundError as detail:
-    error('Unable to use provided profile',detail)
-  return c
-
-
-def parseargs():
-  # Parse arguments
-  parser = argparse.ArgumentParser(description='Update AMI artifact dynamo table')
-
-  credentials = parser.add_mutually_exclusive_group(required=True)
+def aws_parser():
+  aws_parser = argparse.ArgumentParser(add_help=False)
+  credentials = aws_parser.add_mutually_exclusive_group(required=True)
   credentials.add_argument('-c','--credentials',help='AWS credentials',nargs=2,metavar=('ACCESS_KEY_ID','SECRET_KEY'))
   credentials.add_argument('-p','--profile',help='Boto Profile to use')
   credentials.add_argument('-i','--instance_role',help='Use instance role',action='store_true')
 
-  parser.add_argument('-s','--stsrole', help='STS Role to assume')
-  parser.add_argument('-r','--region', help='Region to connect to', default='eu-west-1')
-  parser.add_argument('-t','--table', help='Referential Table')
+  aws_parser.add_argument('-s','--stsrole', help='STS Role to assume')
+  aws_parser.add_argument('-r','--region', help='Region to connect to', default='eu-west-1')
 
-  parser.add_argument('application', help='Application Name')
-  parser.add_argument('build', help='Build Number')
-  parser.add_argument('build_id', help='Build ID')
-  parser.add_argument('commit', help='Git Commit')
-  parser.add_argument('ami', help='AMI ID')
-
-
-  return parser.parse_args()
-
-def main(args):
-  conn=dynaconnect(args)
-  ref = Table(args.table,connection=conn)
-
-  ref.put_item(data={'Application':args.application,'Build':args.build,'Build_ID':args.build_id,'Commit':args.commit,'AMI':args.ami})
-
-if __name__ == "__main__":
-  args=parseargs()
-  main(args)
+  return aws_parser
