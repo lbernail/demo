@@ -153,8 +153,8 @@
           }
         ],
         "ProvisionedThroughput" : {
-          "ReadCapacityUnits" : "4",
-          "WriteCapacityUnits" : "4"
+          "ReadCapacityUnits" : "5",
+          "WriteCapacityUnits" : "5"
         },
         "TableName" : "CloudtrailUsers"
       }
@@ -239,6 +239,7 @@
   "Outputs" : {
     "ELBName"           : { "Description" : "Address of the load-balancer", "Value" :  { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]} },
     "DatabaseEndpoint"  : { "Description" : "Database endpoint", "Value" :  { "Fn::GetAtt" : [ "DemoDB", "Endpoint.Address" ]} },
+    "SGwebservers"      : { "Description" : "Security group for webservers", "Value" : { "Ref" :  "SGwebservers" }},
     "DynamoTable"       : { "Description" : "Dynamo endpoint", "Value" : { "Ref" :  "DemoDDB" }}
   }
 }
