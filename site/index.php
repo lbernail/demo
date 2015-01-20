@@ -24,28 +24,32 @@ echo " </head>\n";
 echo " <body>\n";
 
 
-echo "<p><h3>Database content</h3>\n";
-$rs=$conn->query("show tables");
-if($rs === false) {
-  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
-} else {
-  $rs->data_seek(0);
-  while($row = $rs->fetch_row()){
-    echo $row[0]."<br/>";
-  }
-}
-echo "</p>\n";
-
-
 echo "<p><h3>DynamoDB content</h3>";
 $iterator = $client->getIterator('Scan', array( 'TableName' => $props['ddbtable'] ));
 echo "<table class='t1'>\n";
-echo "<thead><tr><th>Application</th><th>Build ID</th><th>AMI</th></tr></thead>\n";
+echo "<thead><tr><th>User</th><th>Instances</th></thead>\n";
 foreach ($iterator as $item) {
-  echo '<tr><td>'.$item['Application']['S'].'</td><td>'.$item['Build_ID']['S'].'</td><td>'.$item['AMI']['S']."</td></tr>\n";
+  echo '<tr><td>'.$item['user']['S'].'</td><td>'.$item['instances']['N']."</td></tr>\n";
 }
 echo "</table>\n";
 echo "</p>\n";
+
+
+echo "<p><h3>Database content</h3>\n";
+$rs=$conn->query("select eventTime,userIdentityAccountId Account,substring_index(userIdentityArn,':',-1) user,substring(userAgent,1,80) userAgent from trail where eventname='RunInstances' order by eventTime desc;");
+if($rs === false) {
+  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+} else {
+  echo "<table class='t1'>\n";
+  echo "<thead><tr><th>Time</th><th>Account</th><th>User</th><th>User Agent</th></tr></thead>\n";
+  $rs->data_seek(0);
+  while($row = $rs->fetch_row()){
+    echo "<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>\n";
+  }
+  echo "</table>\n";
+}
+echo "</p>\n";
+
 
 echo " </body>\n";
 echo "</html>\n";
