@@ -173,6 +173,13 @@
         "VPCZoneIdentifier" : [ { "Ref" : "PrivateSubnet1" }, { "Ref" : "PrivateSubnet2" } ],
         "HealthCheckType" : "EC2",
         "HealthCheckGracePeriod" : "600"
+      },
+      "UpdatePolicy" : {
+        "AutoScalingRollingUpdate" : {
+          "MaxBatchSize" : "2",
+          "MinInstancesInService" : "1",
+          "PauseTime" : "0"
+        }
       }
     },
 
