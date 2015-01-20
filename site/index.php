@@ -38,7 +38,7 @@ echo "</p>\n";
 
 
 echo "<p><h3>DynamoDB content</h3>";
-$iterator = $client->getIterator('Scan', array( 'TableName' => 'AMI_artifacts'));
+$iterator = $client->getIterator('Scan', array( 'TableName' => $props['ddbtable'] ));
 echo "<table class='t1'>\n";
 echo "<thead><tr><th>Application</th><th>Build ID</th><th>AMI</th></tr></thead>\n";
 foreach ($iterator as $item) {
