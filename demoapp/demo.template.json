@@ -134,29 +134,29 @@
       "Properties" : {
         "AttributeDefinitions" : [
           {
-            "AttributeName" : "application",
+            "AttributeName" : "user",
             "AttributeType" : "S"   
           },
           {
-            "AttributeName" : "parameter",
-            "AttributeType" : "S"
+            "AttributeName" : "instances",
+            "AttributeType" : "N"
           }
         ],
         "KeySchema" : [
           {
-            "AttributeName" : "application",
+            "AttributeName" : "user",
             "KeyType" : "HASH"
           },
           {
-            "AttributeName" : "parameter",
+            "AttributeName" : "instances",
             "KeyType" : "RANGE"
           }
         ],
         "ProvisionedThroughput" : {
-          "ReadCapacityUnits" : "5",
-          "WriteCapacityUnits" : "5"
+          "ReadCapacityUnits" : "4",
+          "WriteCapacityUnits" : "4"
         },
-        "TableName" : "demoDDB"
+        "TableName" : "CloudtrailUsers"
       }
     },
 
@@ -177,8 +177,7 @@
       "UpdatePolicy" : {
         "AutoScalingRollingUpdate" : {
           "MaxBatchSize" : "2",
-          "MinInstancesInService" : "1",
-          "PauseTime" : "0"
+          "MinInstancesInService" : "1"
         }
       }
     },
@@ -238,6 +237,8 @@
 
 
   "Outputs" : {
-    "ELBName" : { "Description" : "Address of the load-balancer", "Value" :  { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]} }
+    "ELBName"           : { "Description" : "Address of the load-balancer", "Value" :  { "Fn::GetAtt" : [ "ElasticLoadBalancer", "DNSName" ]} },
+    "DatabaseEndpoint"  : { "Description" : "Database endpoint", "Value" :  { "Fn::GetAtt" : [ "DemoDB", "Endpoint.Address" ]} },
+    "DynamoTable"       : { "Description" : "Dynamo endpoint", "Value" : { "Ref" :  "DemoDDB" }}
   }
 }
