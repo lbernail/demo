@@ -6,7 +6,7 @@ use Aws\DynamoDb\DynamoDbClient;
 $props = parse_ini_file("application.properties");
 
 # Initialize DB connection
-$conn = new mysqli($props['dbhost'], $props['dbuser'], $props['dbpwd'],$props['database'],$props['dbport']);
+$conn = new mysqli($props['dbhost'], $props['dbuser'], $props['dbpwd'],$props['database']);
 // check connection
 if ($conn->connect_error) {
   trigger_error('Database connection failed: '  . $conn->connect_error, E_USER_ERROR);
@@ -36,9 +36,10 @@ echo "</p>\n";
 
 
 echo "<p><h3>Database content</h3>\n";
-$rs=$conn->query("select eventTime,userIdentityAccountId Account,substring_index(userIdentityArn,':',-1) user,substring(userAgent,1,80) userAgent from trail where eventname='RunInstances' order by eventTime desc;");
+$sql="select eventTime,userIdentityAccountId Account,substring_index(userIdentityArn,':',-1) user,substring(userAgent,1,80) userAgent from trail where eventname='RunInstances' order by eventTime desc;";
+$rs=$conn->query($sql);
 if($rs === false) {
-  trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+  echo "Unable to retrieve data: ".$conn->error;
 } else {
   echo "<table class='t1'>\n";
   echo "<thead><tr><th>Time</th><th>Account</th><th>User</th><th>User Agent</th></tr></thead>\n";
@@ -54,5 +55,4 @@ echo "</p>\n";
 echo " </body>\n";
 echo "</html>\n";
 
-mysql_close($link);
 ?>
