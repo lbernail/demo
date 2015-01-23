@@ -23,6 +23,7 @@ echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"demo.css\">\n";
 echo " </head>\n";
 echo " <body>\n";
 
+echo "<H1>Hello ffrench!</H1>\n";
 
 echo "<p><h3>DynamoDB content</h3>";
 $iterator = $client->getIterator('Scan', array( 'TableName' => $props['ddbtable'] ));
