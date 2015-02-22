@@ -2,7 +2,6 @@
 require 'vendor/autoload.php';
 use Aws\DynamoDb\DynamoDbClient;
 
-
 $props = parse_ini_file("application.properties");
 
 # Initialize DB connection
