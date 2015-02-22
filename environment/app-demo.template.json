@@ -22,10 +22,11 @@
     "SGelb" : { "Description" : "Security group for load-balancer", "Type" : "String" },
     "SGwebservers" : { "Description" : "Security group for web servers", "Type" : "String" },
     "SGstdAccess" : { "Description" : "Security group for all servers", "Type" : "String" },
-    "Properties" : { "Description" : "Properties to inject to configure environment", "Type" : "String" }
+
+    "SharedProperties" : { "Description" : "Properties to inject from shared stack", "Type" : "String" },
+    "Properties" : { "Description" : "Properties to inject from configuration", "Type" : "String" }
 
   },
-
 
   "Resources" : {
 
@@ -67,10 +68,10 @@
               [
                 "#!/bin/bash\n",
                 "rm /var/www/html/application.properties\n",
-                "for var in `echo $ | tr ',' ' '`\n",
+                "for var in `echo ",{ "Ref" : "Properties" }," ",{ "Ref" : "SharedProperties" }," | tr ',' ' '` \n",
                 "do\n",
-                "  variable=${var%=*}\n",
-                "  value=${var##*=}\n",
+                "  variable=${var%:*}\n",
+                "  value=${var##*:}\n",
                 "  echo $variable = $value >> /var/www/html/application.properties\n",
                 "done"
               ]

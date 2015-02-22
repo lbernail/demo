@@ -4,7 +4,7 @@ import boto
 import argparse
 
 def error(context,details):
-  print context
+  print(context)
   print(details)
   exit(1)
 

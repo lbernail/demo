@@ -180,17 +180,17 @@
     "SGstdAccess"               : { "Description" : "Security group for all servers", "Value" : { "Ref" :  "SGstdAccess" }},
     "SGelb"                     : { "Description" : "Security group for all elb", "Value" : { "Ref" :  "SGelb" }},
     "WebserverInstanceProfile"  : { "Description" : "Intance profile for web servers", "Value" : { "Ref" :  "WebserverInstanceProfile" }},
-    "Properties"                : { "Description" : "Properties to inject to configure environment",
+    "SharedProperties"          : { "Description" : "Properties to inject to configure environment",
       "Value" : {
         "Fn::Join" : [
           ",",
           [
-            { "Fn::If" : [ "CreateDB", {"Fn::Join": ["=", [ "dbuser",   { "Ref" : "DBUser"} ]]},      { "Ref" : "AWS::NoValue" }]},
-            { "Fn::If" : [ "CreateDB", {"Fn::Join": ["=", [ "dbpwd",    { "Ref" : "DBPassword"} ]]},  { "Ref" : "AWS::NoValue" }]},
-            { "Fn::If" : [ "CreateDB", {"Fn::Join": ["=", [ "database", { "Ref" : "DBName"} ]]},      { "Ref" : "AWS::NoValue" }]},
-            { "Fn::If" : [ "CreateDB", {"Fn::Join": ["=", [ "dbhost",   { "Fn::GetAtt" : [ "DemoDB", "Endpoint.Address"] } ]]}, { "Ref" : "AWS::NoValue" }]},
-            {"Fn::Join": ["=", [ "ddbtable", { "Ref" : "DemoDDB"} ]]},
-            {"Fn::Join": ["=", [ "region", { "Ref" : "AWS::Region"} ]]}
+            { "Fn::If" : [ "CreateDB", {"Fn::Join": [":", [ "dbuser",   { "Ref" : "DBUser"} ]]},      { "Ref" : "AWS::NoValue" }]},
+            { "Fn::If" : [ "CreateDB", {"Fn::Join": [":", [ "dbpwd",    { "Ref" : "DBPassword"} ]]},  { "Ref" : "AWS::NoValue" }]},
+            { "Fn::If" : [ "CreateDB", {"Fn::Join": [":", [ "database", { "Ref" : "DBName"} ]]},      { "Ref" : "AWS::NoValue" }]},
+            { "Fn::If" : [ "CreateDB", {"Fn::Join": [":", [ "dbhost",   { "Fn::GetAtt" : [ "DemoDB", "Endpoint.Address"] } ]]}, { "Ref" : "AWS::NoValue" }]},
+            {"Fn::Join": [":", [ "ddbtable", { "Ref" : "DemoDDB"} ]]},
+            {"Fn::Join": [":", [ "region", { "Ref" : "AWS::Region"} ]]}
           ]
         ]
       }
