@@ -18,8 +18,8 @@
         "associate_public_ip_address": "false",
         "ssh_username": "ubuntu",
         "ssh_private_ip": "true",
-        "ssh_timeout": "30s",
-        "ami_name": "demo {{timestamp}}"
+        "ssh_timeout": "120s",
+        "ami_name": "demo-{{timestamp}}"
     }],
     "provisioners": [
     {

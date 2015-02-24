@@ -1,5 +1,5 @@
 {
-  "Description" : "D2SI - AWS CloudFormation Template: Shared resources for demo app",
+  "Description" : "D2SI - AWS CloudFormation Template: Demo app",
 
   "Parameters" : {
     "ASGCapacityDesired" : { "Description" : "The desired size of the Auto Scaling group", "Type" : "Number", "Default" : "2" },
@@ -125,6 +125,6 @@
 
 
   "Outputs" : {
-    "AppURL" : { "Description" : "Application URL", "Value" : { "Ref" :  "ElbAlias" }}
+    "AppURL" : { "Description" : "Application URL", "Value" : {"Fn::Join": [".",[{"Ref":"AWS::StackName"},{"Ref":"HostedZoneName"}]]}}
   }
 }
