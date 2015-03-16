@@ -9,7 +9,7 @@ while read line
 do
   user=$(echo $line | cut -d ' ' -f 1)
   instances=$(echo $line | cut -d ' ' -f 2)
-  aws --profile lbernail --region eu-west-1 dynamodb put-item --table-name $ddb \
+  aws --profile lbernail-admin --region eu-west-1 dynamodb put-item --table-name $ddb \
     --item "{\"user\": {\"S\": \"$user\"},\"instances\":{\"N\": \"$instances\"}}"
 done < /tmp/ddb.data
 
