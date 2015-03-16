@@ -19,7 +19,7 @@ $client = DynamoDbClient::factory(array( 'profile' => 'default', 'region' => $pr
 
 echo "<html>\n";
 echo " <head>\n";
-echo "  <title>Automation Demo </title>\n";
+echo "  <title>Automation Demo for TIAD</title>\n";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"demo.css\">\n";
 echo " </head>\n";
 echo " <body>\n";
