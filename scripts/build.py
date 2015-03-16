@@ -51,6 +51,7 @@ def parseargs():
   parser.add_argument('-T','--table',default="Stacks",help='Table used to store stack information')
   parser.add_argument('-b','--bucket',default="demo-templates",help='Bucket with cloudformation templates')
   parser.add_argument('-n','--name',required=True,help='Name of the stack')
+  parser.add_argument('-t','--tag',default="integration",help='Environments tag')
   parser.add_argument('action',choices=['build','delete'],help='Action: build (create or update), delete')
   parser.add_argument('key',nargs='*',help='Additionnal config keys in the forme "key=value"')
 
@@ -118,7 +119,7 @@ def main(args):
     url="https://s3-%s.amazonaws.com/%s/%s" % (args.region,args.bucket,type)
 
     try:
-      action(stackName,template_url=url,parameters=params, capabilities=['CAPABILITY_IAM'])
+      action(stackName,template_url=url,parameters=params, capabilities=['CAPABILITY_IAM'],tags={'env':args.tag})
     except boto.exception.BotoServerError as details:
       if (details.error_message == "No updates are to be performed."):
         print("Stack already up to date")
