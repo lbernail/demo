@@ -35,7 +35,7 @@
       "Properties" : {
         "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
         "AvailabilityZones" : [{"Ref" : "AZ1"}, {"Ref" : "AZ2"}],
-        "Tags": [ { "Key" : "Name", "Value": "DemoASG", "PropagateAtLaunch" : "true" } ],
+        "Tags": [ { "Key" : "Name", "Value": "WebServer", "PropagateAtLaunch" : "true" } ],
         "MinSize" : { "Ref" : "ASGCapacityMin" },
         "MaxSize" : { "Ref" : "ASGCapacityMax" },
         "DesiredCapacity" : { "Ref" : "ASGCapacityDesired" },

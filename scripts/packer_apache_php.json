@@ -11,7 +11,7 @@
         "type": "amazon-ebs",
         "region": "{{user `region`}}",
         "source_ami": "{{user `source_ami`}}",
-        "instance_type": "t2.micro",
+        "instance_type": "t2.medium",
         "subnet_id": "{{user `build_subnet`}}",
         "vpc_id": "{{user `build_vpc`}}",
         "security_group_id": "{{user `build_sg`}}",
@@ -19,7 +19,7 @@
         "ssh_username": "ubuntu",
         "ssh_private_ip": "true",
         "ssh_timeout": "120s",
-        "ami_name": "demo-{{timestamp}}"
+        "ami_name": "demo-{{isotime \"2006-01-02T15-04-05\"}}"
     }],
     "provisioners": [
     {

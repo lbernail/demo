@@ -141,21 +141,21 @@
       "Properties" : {
         "AttributeDefinitions" : [
           {
-            "AttributeName" : "user",
+            "AttributeName" : "lastname",
             "AttributeType" : "S"   
           },
           {
-            "AttributeName" : "instances",
-            "AttributeType" : "N"
+            "AttributeName" : "firstname",
+            "AttributeType" : "S"
           }
         ],
         "KeySchema" : [
           {
-            "AttributeName" : "user",
+            "AttributeName" : "lastname",
             "KeyType" : "HASH"
           },
           {
-            "AttributeName" : "instances",
+            "AttributeName" : "firstname",
             "KeyType" : "RANGE"
           }
         ],
