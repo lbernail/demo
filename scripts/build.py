@@ -93,7 +93,6 @@ def main(args):
   else:
   
     # Initial values from explicit parameters
-    print(args.key)
     param_values_list=[dict([x.strip() for x in k.strip().split("=")] for k in args.key)]
   
     # Get DynamoDB parameters
