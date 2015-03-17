@@ -19,12 +19,11 @@ $client = DynamoDbClient::factory(array( 'profile' => 'default', 'region' => $pr
 
 echo "<html>\n";
 echo " <head>\n";
-echo "  <title>Automation Demo for TIAD</title>\n";
+echo "  <title>Automation Demo</title>\n";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"demo.css\">\n";
 echo " </head>\n";
 echo " <body>\n";
 
-echo "<h3>Roule ma poule</h3>\n";
 echo "<h3>Environment: ${props['Environment']}</h3>\n";
 echo "<h3>Version: ${props['Version']}</h3>\n";
 
