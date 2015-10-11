@@ -5,7 +5,18 @@ use Aws\DynamoDb\DynamoDbClient;
 
 $props = parse_ini_file("application.properties");
 # Initialize DynamoDB client
-$client = DynamoDbClient::factory(array( 'profile' => 'default', 'region' => $props['region']));
+if (isset($props['key']) && isset($props['secret'])) {
+    $client = DynamoDbClient::factory(array(
+        'profile' => 'default',
+        'region' => $props['region'],
+        'key' => $props['key'],
+        'secret' => $props['secret'] ));
+} else {
+    $client = DynamoDbClient::factory(array(
+        'profile' => 'default',
+        'region' => $props['region']));
+}
+
 $iterator = $client->getIterator('Scan', array( 'TableName' => $props['ddbtable'] ));
 
 $first=array();
@@ -176,7 +187,7 @@ for ($i=0;$i<count($first);$i++){
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; TIAD 2015
+                        Copyright &copy; TIAD 2015 / Environment: <?= $props['environment'] ?> / Version: <?= $props['version'] ?>
                     </div>
                 </div>
             </div>
