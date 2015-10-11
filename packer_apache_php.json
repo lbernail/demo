@@ -37,7 +37,7 @@
         {
             "type": "file",
             "source": "{{user `www_dir`}}",
-            "destination": "/tmp/www"
+            "destination": "/tmp/html"
         },
         {
             "type": "shell",

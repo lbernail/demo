@@ -1,5 +1,5 @@
 *.pyc
-shscripts/
 tiad.txt
 demo.txt
 *.swp
+environment/localdev/application.properties
