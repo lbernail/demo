@@ -2,23 +2,31 @@
 <?php
 require 'vendor/autoload.php';
 use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Exception\DynamoDbException;
 
 $props = parse_ini_file("application.properties");
+
 # Initialize DynamoDB client
+$params=array('region' => $props['region']);
+if (isset($props['endpoint'])) {
+    $params['endpoint']=$props['endpoint'];
+}
 if (isset($props['key']) && isset($props['secret'])) {
-    $client = DynamoDbClient::factory(array(
-        'profile' => 'default',
-        'region' => $props['region'],
+    $params['credentials'] = array( 
         'key' => $props['key'],
-        'secret' => $props['secret'] ));
-} else {
-    $client = DynamoDbClient::factory(array(
-        'profile' => 'default',
-        'region' => $props['region']));
+        'secret' => $props['secret']
+    );
+}
+$client = DynamoDbClient::factory($params);
+
+try {
+    $result = $client->describeTable(array('TableName' => $props['ddbtable'] ));
+} catch (DynamoDbException $e) {
+    #echo $e->getMessage() . "\n";
+    exit ("Table ".$props['ddbtable']." does not exists\n");
 }
 
 $iterator = $client->getIterator('Scan', array( 'TableName' => $props['ddbtable'] ));
-
 $first=array();
 $last=array();
 foreach ($iterator as $item) {

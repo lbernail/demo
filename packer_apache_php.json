@@ -1,11 +1,13 @@
 {
     "variables": {
-        "region"        : "",
-        "source_ami"    : "",
-        "build_subnet"  : "",
-        "build_vpc"     : "",
-        "build_sg"      : "",
-        "www_dir"     : ""
+        "region"        : "eu-west-1",
+        "source_ami"    : null,
+        "build_subnet"  : null,
+        "build_vpc"     : null,
+        "build_sg"      : null,
+        "ssh_private"   : "true",
+        "public_ip"     : "false",
+        "www_dir"     : null
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -15,10 +17,10 @@
         "subnet_id": "{{user `build_subnet`}}",
         "vpc_id": "{{user `build_vpc`}}",
         "security_group_id": "{{user `build_sg`}}",
-        "associate_public_ip_address": "false",
-        "ssh_username": "ubuntu",
-        "ssh_private_ip": "true",
-        "ssh_timeout": "120s",
+        "associate_public_ip_address": "{{user `public_ip`}}",
+        "ssh_private_ip": "{{user `ssh_private`}}",
+        "ssh_username": "admin",
+        "ssh_timeout": "300s",
         "ami_name": "demo-{{isotime \"2006-01-02T15-04-05\"}}"
     }],
     "provisioners": [
