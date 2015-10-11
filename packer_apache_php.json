@@ -22,29 +22,27 @@
         "ami_name": "demo-{{isotime \"2006-01-02T15-04-05\"}}"
     }],
     "provisioners": [
-    {
-        "type": "shell",
-        "inline": [
-            "sleep 10",
-            "mkdir -p /tmp/www"
-        ]
-    },
-    {
-        "type": "file",
-        "source": "{{user `www_dir`}}",
-        "destination": "/tmp/www"
-    },
-    {
-        "type": "shell",
-        "inline": [
-            "sudo apt-get update",
-            "sudo apt-get install -y apache2 php5 libapache2-mod-php5 php5-curl php5-mysql",
-            "sudo rm /var/www/html/*",
-            "cd /var/www/html",
-            "sudo sh -c 'curl -sS https://getcomposer.org/installer | php'",
-            "sudo mv /tmp/www/* /var/www/html",
-            "sudo php composer.phar install",
-            "sudo service apache2 restart"
-        ]
-    }]
+        {
+            "type": "shell",
+            "inline": [
+                "sleep 10",
+                "mkdir -p /tmp/www"
+            ]
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/scripts/install_packages.sh",
+            "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
+        },
+        {
+            "type": "file",
+            "source": "{{user `www_dir`}}",
+            "destination": "/tmp/www"
+        },
+        {
+            "type": "shell",
+            "script": "{{template_dir}}/scripts/config_site.sh",
+            "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
+        }
+    ]
 }
