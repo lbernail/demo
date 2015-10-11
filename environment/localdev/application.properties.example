@@ -1,0 +1,6 @@
+environment = LocalDEV
+version = White
+ddbtable = demo-dev-attendees
+region = eu-west-1
+key = AKIA...
+secret = azertyuiop
