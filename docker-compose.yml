@@ -1,0 +1,15 @@
+dynamodb:
+    image: deangiberson/aws-dynamodb-local
+    expose:
+        - 8000
+    ports:
+        - 8000:8000
+
+web:
+    image: demo
+    links:
+        - dynamodb
+    volumes:
+        - $HOME/dev/examples/demo/environment/localdev/application.properties:var/www/html/application.properties:ro
+    ports:
+        - 8080:80
