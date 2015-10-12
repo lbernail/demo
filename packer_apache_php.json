@@ -7,7 +7,7 @@
         "build_sg"      : null,
         "ssh_private"   : "true",
         "public_ip"     : "false",
-        "www_dir"     : null
+        "source_dir"     : null
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -33,17 +33,27 @@
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/scripts/install_packages.sh",
+            "script": "{{user `source_dir`}}/scripts/install_packages.sh",
             "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
         },
         {
             "type": "file",
-            "source": "{{user `www_dir`}}",
+            "source": "{{user `source_dir`}}/site/composer.json",
+            "destination": "/tmp/composer.json"
+        },
+        {
+            "type": "shell",
+            "script": "{{user `source_dir`}}/scripts/install_php_archives.sh",
+            "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
+        },
+        {
+            "type": "file",
+            "source": "{{user `source_dir`}}/site",
             "destination": "/tmp/html"
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/scripts/config_site.sh",
+            "script": "{{user `source_dir`}}/scripts/config_site.sh",
             "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
         }
     ]
