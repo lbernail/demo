@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 TERRAFORM_DL=${TOOLS_DIR}/terraform-${TERRAFORM_VERSION}

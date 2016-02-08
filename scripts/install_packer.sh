@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 PACKER_DL=${TOOLS_DIR}/packer-${PACKER_VERSION}
