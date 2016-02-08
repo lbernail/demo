@@ -7,7 +7,9 @@
         "build_sg"      : null,
         "ssh_private"   : "true",
         "public_ip"     : "false",
-        "source_dir"     : null
+        "commmit"       : "unknown",
+        "project"       : "demo",
+        "source_dir"    : null
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -21,7 +23,17 @@
         "ssh_private_ip": "{{user `ssh_private`}}",
         "ssh_username": "admin",
         "ssh_timeout": "300s",
-        "ami_name": "demo-{{isotime \"2006-01-02T15-04-05\"}}"
+        "ami_name": "{{user `project`}}-{{user `commit`}}",
+        "ami_description": "{{user `project`}}, commit: {{user `commit`}}",
+        "tags": {
+          "Name": "{{user `project`}}",
+          "Commit": "{{user `commit`}}",
+          "SourceAmi": "{{user `source_ami`}}"
+      },
+      "run_tags": {
+        "Name": "Packer Builder {{user `project`}}",
+        "Commit": "{{user `commit`}}"
+      }
     }],
     "provisioners": [
         {
