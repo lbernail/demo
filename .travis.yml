@@ -1,3 +1,9 @@
+env:
+  global:
+    - PACKER_VERSION=0.8.6
+    - TERRAFORM_VERSION=0.6.8
+    - TOOLS_DIR=$HOME/tools
+
 language: php
 php:
   - '5.6'
@@ -7,3 +13,17 @@ before_install:
 
 script:
   - php -l site/index.php
+
+before_deploy:
+  - export PATH=$PATH:$TOOLS_DIR/bin
+  - scripts/install_packer.sh
+  - scripts/install_terraform.sh
+
+deploy:
+  provider: script
+  script: packer version
+  on:
+     branch: master
+
+cache:
+  - $TOOLS_DIR
