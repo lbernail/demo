@@ -16,6 +16,7 @@ before_deploy:
 - export PATH=$PATH:$TOOLS_DIR/bin
 - scripts/install_packer.sh
 - scripts/install_terraform.sh
+- pip install awscli
 deploy:
   provider: script
   script:

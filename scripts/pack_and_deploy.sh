@@ -2,5 +2,4 @@
 set -e
 
 echo "Hello"
-packer version
-terraform version
+aws s3 ls
