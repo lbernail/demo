@@ -1,0 +1,6 @@
+{
+    "source_ami": "ami-e31a6594",
+    "build_subnet": "subnet-6f607c29",
+    "build_vpc": "vpc-6a44b50f",
+    "build_sg": "sg-8cd342e9"
+}
