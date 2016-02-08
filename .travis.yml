@@ -1,31 +1,23 @@
 env:
   global:
-    - PACKER_VERSION=0.8.6
-    - TERRAFORM_VERSION=0.6.11
-    - TOOLS_DIR=$HOME/tools
-
+  - PACKER_VERSION=0.8.6
+  - TERRAFORM_VERSION=0.6.11
+  - TOOLS_DIR=$HOME/tools
+  - secure: a6Cll+xqEJ8occt5j76FhNgpgHzP6rp3GC4SQTq2UQd0aIEl/Xd7N0ChmGHwiUr3ehKchVdecI9Fy0KcEe9f8p96KlxiOkgLafS4CdAgY2+lNvu6VZdNLzWstGfBTXOZDJ2MedwTz2omVrKvEZNE5r4bz7ZelKtece8Jbg3gVNA=
 language: php
 php:
-  - '5.6'
-
+- '5.6'
 before_install:
-  - composer self-update
-
+- composer self-update
 script:
-  - php -l site/index.php
-
+- php -l site/index.php
 before_deploy:
-  - export PATH=$PATH:$TOOLS_DIR/bin
-  - scripts/install_packer.sh
-  - scripts/install_terraform.sh
-
+- export PATH=$PATH:$TOOLS_DIR/bin
+- scripts/install_packer.sh
+- scripts/install_terraform.sh
 deploy:
   provider: script
   script:
-    - scripts/pack_and_deploy.sh
+  - scripts/pack_and_deploy.sh
   on:
-     branch: master
-
-cache:
-  directories:
-    - $TOOLS_DIR
+    branch: master
