@@ -27,4 +27,5 @@ deploy:
      branch: master
 
 cache:
-  - $TOOLS_DIR
+  directories:
+    - $TOOLS_DIR
