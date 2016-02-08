@@ -7,19 +7,19 @@ env:
   - secure: F64+IuxUPz+dQCn4j/i84RxIuGCOS4C0XTQdxmzEHsEhB/3MyZ2jpI1ZDJBCJHQPcMEiOK5sSSxGD4M3Mab/HdVUELJV32qOsDw7ZYtr3zUevLOAtzh78M5M0vxatmlfZy6xy4v/p0iehaS3Zo82cQY1Ndepx+tutFnLGbHG+QA=
 language: php
 php:
-- '5.6'
+  - '5.6'
 before_install:
-- composer self-update
+  - composer self-update
 script:
-- php -l site/index.php
+  - php -l site/index.php
 before_deploy:
-- export PATH=$PATH:$TOOLS_DIR/bin
-- scripts/install_packer.sh
-- scripts/install_terraform.sh
-- pip install awscli
+  - export PATH=$PATH:$TOOLS_DIR/bin
+  - scripts/install_packer.sh
+  - scripts/install_terraform.sh
+  - pip install --user awscli
 deploy:
   provider: script
   script:
-  - scripts/pack_and_deploy.sh
+    - scripts/pack_and_deploy.sh
   on:
     branch: master
