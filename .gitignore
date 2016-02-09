@@ -3,3 +3,5 @@ tiad.txt
 demo.txt
 *.swp
 environment/localdev/application.properties
+terraform.tfstate
+terraform.tfstate.backup
