@@ -7,7 +7,7 @@
         "build_sg"      : null,
         "ssh_private"   : "true",
         "public_ip"     : "false",
-        "commmit"       : "unknown",
+        "commit"        : "unknown",
         "project"       : "demo",
         "source_dir"    : null
     },
