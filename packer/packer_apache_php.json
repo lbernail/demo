@@ -4,7 +4,7 @@
         "source_ami"    : null,
         "build_subnet"  : null,
         "build_vpc"     : null,
-        "build_sg"      : null,
+        "build_sg"      : "",
         "ssh_private"   : "true",
         "public_ip"     : "false",
         "commit"        : "unknown",

@@ -3,7 +3,7 @@
     "region": "eu-west-1",
     "build_vpc": "vpc-6a44b50f",
     "build_subnet": "subnet-6f607c29",
-    "build_sg": "sg-8cd342e9",
+    "build_sg": "",
     "ssh_private"   : "false",
     "public_ip"     : "true",
     "project" : "demotv"
