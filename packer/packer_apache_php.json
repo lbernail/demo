@@ -9,7 +9,7 @@
         "public_ip"     : "false",
         "commit"        : "unknown",
         "project"       : "demo",
-        "source_dir"    : null
+        "site_dir"    : null
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -45,27 +45,27 @@
         },
         {
             "type": "shell",
-            "script": "{{user `source_dir`}}/scripts/install_packages.sh",
+            "script": "{{template_dir}}/scripts/install_packages.sh",
             "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
         },
         {
             "type": "file",
-            "source": "{{user `source_dir`}}/site/composer.json",
+            "source": "{{user `site_dir`}}/composer.json",
             "destination": "/tmp/composer.json"
         },
         {
             "type": "shell",
-            "script": "{{user `source_dir`}}/scripts/install_php_archives.sh",
+            "script": "{{template_dir}}/scripts/install_php_archives.sh",
             "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
         },
         {
             "type": "file",
-            "source": "{{user `source_dir`}}/site",
+            "source": "{{user `site_dir`}}",
             "destination": "/tmp/html"
         },
         {
             "type": "shell",
-            "script": "{{user `source_dir`}}/scripts/config_site.sh",
+            "script": "{{template_dir}}/scripts/config_site.sh",
             "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
         }
     ]
