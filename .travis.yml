@@ -5,6 +5,8 @@ env:
   - TOOLS_DIR=$HOME/tools
   - PACKER_TEMPLATE=packer_apache_php.json
   - PACKER_VARS=vars/travis.json
+  - STATE_BUCKET=tfstates
+  - STATE_KEY=demo/frontends
   - secure: a6Cll+xqEJ8occt5j76FhNgpgHzP6rp3GC4SQTq2UQd0aIEl/Xd7N0ChmGHwiUr3ehKchVdecI9Fy0KcEe9f8p96KlxiOkgLafS4CdAgY2+lNvu6VZdNLzWstGfBTXOZDJ2MedwTz2omVrKvEZNE5r4bz7ZelKtece8Jbg3gVNA=
   - secure: F64+IuxUPz+dQCn4j/i84RxIuGCOS4C0XTQdxmzEHsEhB/3MyZ2jpI1ZDJBCJHQPcMEiOK5sSSxGD4M3Mab/HdVUELJV32qOsDw7ZYtr3zUevLOAtzh78M5M0vxatmlfZy6xy4v/p0iehaS3Zo82cQY1Ndepx+tutFnLGbHG+QA=
 
@@ -28,6 +30,6 @@ before_deploy:
 deploy:
   provider: script
   script:
-    - scripts/pack_and_deploy.sh $TRAVIS_BUILD_DIR $PACKER_VARS $PACKER_TEMPLATE $TRAVIS_COMMIT 
+    - scripts/pack_and_deploy.sh $TRAVIS_BUILD_DIR $PACKER_VARS $PACKER_TEMPLATE $TRAVIS_COMMIT $STATE_BUCKET $STATE_KEY
   on:
     branch: master

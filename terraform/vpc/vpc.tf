@@ -103,4 +103,4 @@ output "azs" { value = "${lookup(var.azs,var.region)}" }
 output "public_subnets" { value = "${join(\",\", aws_subnet.public.*.id)}" }
 output "private_subnets" { value = "${join(\",\", aws_subnet.private.*.id)}" }
 output "bastion" { value = "${aws_instance.bastion.public_ip}" }
-output "sshserver-sg" { value = "${aws_security_group.sshserver.id}" }
+output "sg_sshserver" { value = "${aws_security_group.sshserver.id}" }
