@@ -35,3 +35,4 @@ deploy:
     - scripts/pack_and_deploy.sh $TRAVIS_BUILD_DIR $PACKER_VARS $PACKER_TEMPLATE $TRAVIS_COMMIT $STATE_BUCKET $STATE_KEY
   on:
     branch: master
+    condition: "$COMMIT_SUBJECT != *\"[no deploy]\"*"
