@@ -24,6 +24,7 @@ script:
 
 before_deploy:
   - export PATH=$PATH:$TOOLS_DIR/bin
+  - export COMMIT_TAG="$(git log --format=%s --no-merges -n 1 | sed -n 's/\[\(.*\)\].*/\1/p')"
   - scripts/install_packer.sh
   - scripts/install_terraform.sh
   - pip install --user awscli
