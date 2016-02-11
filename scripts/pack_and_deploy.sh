@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-if [[ $COMMIT_SUBJECT == *"no deploy"* ]]
+if [[ $COMMIT_SUBJECT == *"[no deploy]"* ]]
 then
-    echo "no deploy tag in commit"
+    echo "[no deploy] tag in commit, skipping deploy"
     exit 0
 fi
 
