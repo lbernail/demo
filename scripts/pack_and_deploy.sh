@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-if [[ $COMMIT_SUBJECT == *"[no deploy]"* ]]
-then
-    echo "[no deploy] tag in commit, skipping deploy"
-    exit 0
-fi
-
 BUILD_DIR=$1
 PACKER_VARS=$2
 PACKER_TEMPLATE=$3
