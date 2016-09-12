@@ -19,6 +19,6 @@ AMI=$(egrep "(eu|us|ap|sa)-(west|central|east|northeast|southeast)-(1|2): ami-" 
 pushd $TERRAFORM_DIR
 rm -rf .terraform
 terraform remote config -backend=s3 -backend-config="bucket=$BUCKET" -backend-config="key=$KEY"
-terraform plan -var "commit=$SHORT_COMMIT" -var "web_ami=$AMI"
-terraform apply -var "commit=$SHORT_COMMIT" -var "web_ami=$AMI"
+TF_VAR_commit=$SHORT_COMMIT terraform plan  -var "web_ami=$AMI"
+TF_VAR_commit=$SHORT_COMMIT terraform apply -var "web_ami=$AMI"
 popd
