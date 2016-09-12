@@ -13,6 +13,7 @@
     },
     "builders": [{
         "type": "amazon-ebs",
+        "force_deregister" : "true",
         "region": "{{user `region`}}",
         "source_ami": "{{user `source_ami`}}",
         "instance_type": "t2.medium",
