@@ -11,23 +11,23 @@ resource "aws_subnet" "public" {
     vpc_id = "${aws_vpc.main.id}"
     count = "${length(split(",",lookup(var.azs,var.region)))}"
     cidr_block = "${element(split(",",var.public_networks),count.index)}"
-    availability_zone = "${element(split(\",\", lookup(var.azs,var.region)), count.index)}"
+    availability_zone = "${element(split(",", lookup(var.azs,var.region)), count.index)}"
     map_public_ip_on_launch = "true"
-    tags { Name = "${concat(var.vpc_name," public subnet ",count.index)}" }
+    tags { Name = "${var.vpc_name} public subnet ${count.index}" }
 }
 
 resource "aws_subnet" "private" {
     vpc_id = "${aws_vpc.main.id}"
     count = "${length(split(",",lookup(var.azs,var.region)))}"
     cidr_block = "${element(split(",",var.private_networks),count.index)}"
-    availability_zone = "${element(split(\",\", lookup(var.azs,var.region)), count.index)}"
+    availability_zone = "${element(split(",", lookup(var.azs,var.region)), count.index)}"
     map_public_ip_on_launch = "false"
-    tags { Name = "${concat(var.vpc_name," private subnet ",count.index)}" }
+    tags { Name = "${var.vpc_name} private subnet ${count.index}" }
 }
 
 resource "aws_internet_gateway" "gw" {
     vpc_id = "${aws_vpc.main.id}"
-    tags { Name = "${concat(var.vpc_name," igw")}" }
+    tags { Name = "${var.vpc_name} igw" }
 }
 
 resource "aws_route_table" "public" {
@@ -36,7 +36,7 @@ resource "aws_route_table" "public" {
         cidr_block = "0.0.0.0/0"
         gateway_id = "${aws_internet_gateway.gw.id}"
     }
-    tags { Name = "${concat(var.vpc_name," public route")}" }
+    tags { Name = "${var.vpc_name} public route" }
 }
 
 resource "aws_route_table_association" "rtap" {
@@ -61,7 +61,7 @@ resource "aws_route_table" "private" {
         cidr_block = "0.0.0.0/0"
         nat_gateway_id = "${aws_nat_gateway.gw.id}"
     }
-    tags { Name = "${concat(var.vpc_name," Private Route")}" }
+    tags { Name = "${var.vpc_name} Private Route" }
 }
 
 resource "aws_route_table_association" "rtaprv" {
@@ -71,21 +71,21 @@ resource "aws_route_table_association" "rtaprv" {
 }
 
 resource "aws_security_group" "bastion" {
-  name = "${concat(var.vpc_name,"-bastion")}"
+  name = "${var.vpc_name}-bastion"
   description = "Allow all ssh from trusted networks"
   vpc_id = "${aws_vpc.main.id}"
   ingress { from_port=22 to_port=22 protocol="tcp" cidr_blocks=[ "${split(",",var.trusted_networks)}" ] }
   egress { from_port=0 to_port=0 protocol="-1" cidr_blocks=["0.0.0.0/0"] }
-  tags { Name = "${concat(var.vpc_name," Bastion")}" }
+  tags { Name = "${var.vpc_name} Bastion" }
 }
 
 resource "aws_security_group" "sshserver" {
-  name = "${concat(var.vpc_name,"-sshserver")}"
+  name = "${var.vpc_name}-sshserver"
   description = "Allow all ssh from bastion"
   vpc_id = "${aws_vpc.main.id}"
   ingress { from_port=22 to_port=22 protocol="tcp" security_groups=[ "${aws_security_group.bastion.id}" ] }
   egress { from_port=0 to_port=0 protocol="-1" cidr_blocks=["0.0.0.0/0"] }
-  tags { Name = "${concat(var.vpc_name," SSH server")}" }
+  tags { Name = "${var.vpc_name} SSH server" }
 }
 
 resource "aws_instance" "bastion" {
@@ -100,7 +100,7 @@ resource "aws_instance" "bastion" {
 output "vpc_id" { value = "${aws_vpc.main.id}" }
 output "region" { value = "${var.region}" }
 output "azs" { value = "${lookup(var.azs,var.region)}" }
-output "public_subnets" { value = "${join(\",\", aws_subnet.public.*.id)}" }
-output "private_subnets" { value = "${join(\",\", aws_subnet.private.*.id)}" }
+output "public_subnets" { value = "${join(",", aws_subnet.public.*.id)}" }
+output "private_subnets" { value = "${join(",", aws_subnet.private.*.id)}" }
 output "bastion" { value = "${aws_instance.bastion.public_ip}" }
 output "sg_sshserver" { value = "${aws_security_group.sshserver.id}" }
