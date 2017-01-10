@@ -13,5 +13,8 @@ then
     rm packer-${PACKER_VERSION}.zip
 fi
 
+echo "Dl OK"
+ls -l ${PACKER_DL}
+
 ln -sf ${PACKER_DL}/packer ${TOOLS_DIR}/bin
 packer version
