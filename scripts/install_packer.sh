@@ -8,10 +8,10 @@ mkdir -p ${TOOLS_DIR}/bin
 if [ ! -d "${PACKER_DL}" ]
 then
     mkdir -p ${PACKER_DL}
-    wget -q -O packer-${PACKER_VERSION}.zip https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
-    ls -l ${PACKER_DL}
+    wget -q -O /tmp/packer-${PACKER_VERSION}.zip https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
+    file /tmp/packer-${PACKER_VERSION}.zip
     unzip
-    unzip -q packer-${PACKER_VERSION}.zip -d ${PACKER_DL}
+    unzip -q /tmp/packer-${PACKER_VERSION}.zip -d ${PACKER_DL}
     rm packer-${PACKER_VERSION}.zip
 fi
 
