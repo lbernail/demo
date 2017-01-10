@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ex
 
 PACKER_DL=${TOOLS_DIR}/packer-${PACKER_VERSION}
 
