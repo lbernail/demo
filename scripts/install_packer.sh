@@ -2,6 +2,7 @@
 set -x
 set -e
 
+openssl version
 PACKER_DL=${TOOLS_DIR}/packer-${PACKER_VERSION}
 
 mkdir -p ${TOOLS_DIR}/bin      
