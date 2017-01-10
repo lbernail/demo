@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 PACKER_DL=${TOOLS_DIR}/packer-${PACKER_VERSION}
 
@@ -13,7 +13,6 @@ then
     rm packer-${PACKER_VERSION}.zip
 fi
 
-echo "Dl OK"
 ls -l ${PACKER_DL}
 
 ln -sf ${PACKER_DL}/packer ${TOOLS_DIR}/bin
