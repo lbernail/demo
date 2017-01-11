@@ -30,6 +30,7 @@ These commands will configure 3 cloudformation stacks and the associated depende
 The build tool is retrieving the templates from an S3 bucket so they can be centralized.  
 The default bucket is demo-templates which is publicly readable but you can easily change it and upload custom cloudformation templates
 
+
 ```
 ./build.py -n infra-int -t integration build
 ./build.py -n shared-demo-int -t integration build
