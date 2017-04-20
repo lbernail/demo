@@ -4,8 +4,8 @@ set -e
 
 PACKER_DL=${TOOLS_DIR}/packer-${PACKER_VERSION}
 
-mkdir -p ${TOOLS_DIR}/bin      
-                               
+mkdir -p ${TOOLS_DIR}/bin
+
 if [ ! -d "${PACKER_DL}" ]
 then
     mkdir -p ${PACKER_DL}
