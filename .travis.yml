@@ -8,33 +8,26 @@ env:
   - STATE_BUCKET=tfstates
   - STATE_KEY=demo/frontends
   - AWS_DEFAULT_REGION=eu-west-1
-  - secure: a6Cll+xqEJ8occt5j76FhNgpgHzP6rp3GC4SQTq2UQd0aIEl/Xd7N0ChmGHwiUr3ehKchVdecI9Fy0KcEe9f8p96KlxiOkgLafS4CdAgY2+lNvu6VZdNLzWstGfBTXOZDJ2MedwTz2omVrKvEZNE5r4bz7ZelKtece8Jbg3gVNA=
-  - secure: F64+IuxUPz+dQCn4j/i84RxIuGCOS4C0XTQdxmzEHsEhB/3MyZ2jpI1ZDJBCJHQPcMEiOK5sSSxGD4M3Mab/HdVUELJV32qOsDw7ZYtr3zUevLOAtzh78M5M0vxatmlfZy6xy4v/p0iehaS3Zo82cQY1Ndepx+tutFnLGbHG+QA=
-
+  - secure: AGRBY6wKT4QmiigljkdGzdPC9pP1tWMYWj3M0VgDZd1KdL/3dpszq4lwMX1D0vLc7gHFvXLvaM8qhDgg5oB3T5OlW10niPlFkHfDbwofUQe4iQiGAtRw1TvgElYO9HhjfBlo5bBoeJBfReKmLoIdXZjPCbHM1gUy/Mdic42KKsOoRnSfHWS3Kk7ng2vGhupCHVdsuX1Q3qiHZxvOnYI2NwMroQtWxmA5Vb3E5FYbjaSg0DiqY8PneWaoqIBe1r4bpAVVXfpKqu9elMYjmZTOiZKkAxAcOw7gVYvHCNKWQz0fnjSrAvE3MsWp/bE4t91ULhxCsCo5HSiABc3QHeHZ/5vUIUu9X6xiTw/RyEPUydP+0Q3xf1cNgFLgIZIEd4h26tl2XMa2u54O8Dv4faTwpP02Eam20eFiWTkd0UddLphIcaFzVvyHMycn1eKkxiKCxicK/gelk9rz1Wnw6HUJZGjaUP23hb6hqfFLVPgJPTbjJHVDoldIfiLzG3jG5UmDTW1IBduZxjrcC0F2Qa5jgyvB1zTJFr+M08fzbnck3G4+KzCHEIl6PQpUPFG42ful6CuHC34e20E8CvwUMwI/1weMVzAvs+ltahCZp+tU+5Ju7Ane99J4ZfQomWvweK5SXsakfPow6ogxOXf+9kjk2WaOR1wfwgMe6E/0I0KuElI=
+  - secure: FFKoV2HtPbFnCmf0T77M1tXRj+oUY28sNrcdZbks1XXRP4Ls8oUiqxbkbacTLeb1XfLWiNsnT1TjQNKzGPLPCJBfZC0HTK6hx7zWcnsdn7leLkR/yeQZm2nWcnf2ZPjluGhCNwffweQ64FKcuoubzChBSgkosTGxx9YCGwU4wZI5gwxNe2UE6V/Td1OgGWQfsvBIVxrMjqx7Md1al2faROvoJgmDdnCP9loRkWZXktHKAAqUE4lPtruhLWPGn2EE1KNJ5ui0JETJBaeNIyLsiXSrxN2mxsXfretxIN0eYlBcBqt25BHr+x3HGyJlOwIDIozk/LTVIQa8+vqnkID01llzQ/SPton8GhlpHhuyLi4rWwQyTTw6G3D6odiHgk+Nnr2wQET6fNnkeXLstKvHwpSrxJtQX9W66PtaPG4jFPJW/0EjMY3706o7Ist8vxPCKvCNlvgxJZCguBZM+996i3eqW8+bbhUTzzw4igC5njO3r92l7KCMvQlYbyw0DC/u1iv70t3yqy9UBrrgshO8W58hZQwGiU3bfHh4Nz//CpDeAoYHwEWByfy9hrm9sw9nzLtARtJlyk6Hzgf29X9YkC5jxjkx66qYoVC2OhfPyR2WTcKxP1C2iCDQwNQzSkO7SbC0MArxOscX6kQtELM7vIl2PyPyvDUzE12vmcp6pSk=
 dist: trusty
-
 language: php
-
 php:
-  - '5.6'
-
+- '5.6'
 before_install:
-  - composer self-update
-
+- composer self-update
 script:
-  - php -l site/index.php
-  - export COMMIT_SUBJECT="$(git log --format=%s --no-merges -n 1)"
-
+- php -l site/index.php
+- export COMMIT_SUBJECT="$(git log --format=%s --no-merges -n 1)"
 before_deploy:
-  - export PATH=$PATH:$TOOLS_DIR/bin
-  - scripts/install_packer.sh
-  - scripts/install_terraform.sh
-#  - pip install --user awscli
-
+- export PATH=$PATH:$TOOLS_DIR/bin
+- scripts/install_packer.sh
+- scripts/install_terraform.sh
 deploy:
   provider: script
   script:
-    - scripts/pack_and_deploy.sh $TRAVIS_BUILD_DIR $PACKER_VARS $PACKER_TEMPLATE $TRAVIS_COMMIT $STATE_BUCKET $STATE_KEY
+  - scripts/pack_and_deploy.sh $TRAVIS_BUILD_DIR $PACKER_VARS $PACKER_TEMPLATE $TRAVIS_COMMIT
+    $STATE_BUCKET $STATE_KEY
   on:
     branch: master
-    condition: "$COMMIT_SUBJECT != *\"[no deploy]\"*"
+    condition: $COMMIT_SUBJECT != *"[no deploy]"*
