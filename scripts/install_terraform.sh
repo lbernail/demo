@@ -1,11 +1,9 @@
-#!/bin/bash
-set -x
-set -e
+#!/bin/bash -xe
 
 TERRAFORM_DL=${TOOLS_DIR}/terraform-${TERRAFORM_VERSION}
 
-mkdir -p ${TOOLS_DIR}/bin      
-                               
+mkdir -p ${TOOLS_DIR}/bin
+
 if [ ! -d "${TERRAFORM_DL}" ]
 then
     mkdir -p ${TERRAFORM_DL}
