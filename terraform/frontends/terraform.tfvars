@@ -34,4 +34,6 @@ health_check_grace_period = "300"
 
 route53_zoneid = "Z2R8GOXZP18OSR"
 
-dns_alias = "tiad.awsdemo.grkoffi.me"
+dns_alias = "tiad-awsdemo.grkoffi.me"
+
+ssl_certificate_id = "arn:aws:acm:eu-west-1:364771791306:certificate/e9e99416-b63a-41a8-ab0e-609597f0d9d9"

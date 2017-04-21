@@ -24,6 +24,13 @@ resource "aws_security_group" "elb" {
     protocol    = "tcp"
   }
 
+  ingress {
+    from_port   = "443"
+    to_port     = "443"
+    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "tcp"
+  }
+
   egress {
     from_port   = "0"
     to_port     = "0"

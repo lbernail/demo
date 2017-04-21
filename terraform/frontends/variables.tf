@@ -4,7 +4,10 @@ variable "backends_state_key" {}
 variable "region" {}
 
 variable "frontend_name" {}
-variable "commit" {default = "unknwon"}
+
+variable "commit" {
+  default = "unknwon"
+}
 
 variable "web_ami" {}
 variable "web_instance_type" {}
@@ -21,3 +24,4 @@ variable "health_check_grace_period" {}
 
 variable "route53_zoneid" {}
 variable "dns_alias" {}
+variable "ssl_certificate_id" {}
