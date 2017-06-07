@@ -1,9 +1,9 @@
 env:
   global:
   - PACKER_VERSION=0.12.1
-  - TERRAFORM_VERSION=0.8.8
+  - TERRAFORM_VERSION=0.9.6
   - TOOLS_DIR=$HOME/tools
-  - PACKER_TEMPLATE=packer_apache_php.json
+  - PACKER_TEMPLATE=packer_:wqapache_php.json
   - PACKER_VARS=vars/travis.json
   - STATE_BUCKET=tfstates
   - STATE_KEY=demo/frontends
