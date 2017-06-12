@@ -48,13 +48,12 @@ resource "aws_elb" "web" {
     tags { Name = "web-${var.frontend_name}" }
 }
 
-resource "template_file" "user_data" {
+data "template_file" "user_data" {
     template = "${file("user_data.tpl")}"
     vars {
          backend_properties = "${data.terraform_remote_state.backends.properties}"
          properties = "${var.properties}"
     }
-    lifecycle { create_before_destroy = true }
 }
 
 resource "aws_launch_configuration" "web" {
@@ -64,7 +63,7 @@ resource "aws_launch_configuration" "web" {
     key_name = "${var.key_name}"
     security_groups = ["${data.terraform_remote_state.backends.sg_web}",
                        "${data.terraform_remote_state.vpc.sg_sshserver}"]
-    user_data="${template_file.user_data.rendered}"
+    user_data="${data.template_file.user_data.rendered}"
     iam_instance_profile = "${data.terraform_remote_state.backends.web_profile}"
     lifecycle { create_before_destroy = true }
 }
