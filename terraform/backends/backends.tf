@@ -1,8 +1,17 @@
+terraform {
+    backend "s3" {
+        bucket = "tfstates"
+        key    = "demo/backends"
+        region = "eu-west-1"
+    }
+}
+
 data "terraform_remote_state" "vpc" {
     backend = "s3"
     config {
-        bucket = "${var.state_bucket}"
-        key = "${var.vpc_state_key}"
+        bucket = "tfstates"
+        key    = "demo/vpc"
+        region = "${var.region}"
     }
 }
 
@@ -113,7 +122,7 @@ resource "aws_iam_policy_attachment" "web" {
 
 resource "aws_iam_instance_profile" "web" {
     name = "profile_web_${var.backend_name}"
-    roles = ["${aws_iam_role.web.name}"]
+    role = "${aws_iam_role.web.name}"
 }
 
 output "ddb_table" { value = "${var.ddb_name}" }

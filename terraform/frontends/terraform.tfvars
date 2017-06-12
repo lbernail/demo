@@ -1,6 +1,3 @@
-state_bucket	    = "tfstates"
-vpc_state_key	    = "demo/vpc"
-backends_state_key	= "demo/backends"
 region	            = "eu-west-1"
 
 frontend_name	    = "demo"

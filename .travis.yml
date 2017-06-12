@@ -1,7 +1,7 @@
 env:
   global:
   - PACKER_VERSION=0.12.1
-  - TERRAFORM_VERSION=0.9.6
+  - TERRAFORM_VERSION=0.9.8
   - TOOLS_DIR=$HOME/tools
   - PACKER_TEMPLATE=packer_:wqapache_php.json
   - PACKER_VARS=vars/travis.json

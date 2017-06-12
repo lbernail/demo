@@ -1,21 +1,29 @@
-provider "aws" {
-  region = "${var.region}"
+terraform {
+    backend "s3" {
+        bucket = "tfstates"
+        key    = "demo/frontends"
+        region = "eu-west-1"
+    }
 }
 
 data "terraform_remote_state" "vpc" {
     backend = "s3"
     config {
-        bucket = "${var.state_bucket}"
-        key = "${var.vpc_state_key}"
+        bucket = "tfstates"
+        key    = "demo/vpc"
     }
 }
 
 data "terraform_remote_state" "backends" {
     backend = "s3"
     config {
-        bucket = "${var.state_bucket}"
-        key = "${var.backends_state_key}"
+        bucket = "tfstates"
+        key    = "demo/backends"
     }
+}
+
+provider "aws" {
+  region = "${var.region}"
 }
 
 resource "aws_elb" "web" {

@@ -1,4 +1,5 @@
 region          = "eu-west-1"
+
 vpc_name        = "demo-training"
 base_network    = "10.0.0.0/16"
 public_networks = "10.0.0.0/24,10.0.1.0/24"

@@ -1,6 +1,3 @@
-variable "state_bucket" {}
-variable "vpc_state_key" {}
-variable "backends_state_key" {}
 variable "region" {}
 
 variable "frontend_name" {}

@@ -1,5 +1,13 @@
+terraform {
+    backend "s3" {
+        bucket = "tfstates"
+        key    = "demo/vpc"
+        region = "eu-west-1"
+    }
+}
+
 provider "aws" {
-    region = "eu-west-1"
+    region = "${var.region}"
 }
 
 resource "aws_vpc" "main" {
