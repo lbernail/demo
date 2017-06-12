@@ -16,6 +16,18 @@ packer build -force -var-file $PACKER_DIR/$PACKER_VARS -var "site_dir=$BUILD_DIR
 
 AMI=$(egrep "(eu|us|ap|sa)-(west|central|east|northeast|southeast)-(1|2): ami-" /tmp/packer.out | sed 's/.*ami-\([0-9a-f]*\).*/ami-\1/g')
 
+pushd $BUILD_DIR/terraform/vpc
+rm -rf .terraform
+terraform init
+TF_VAR_commit=$SHORT_COMMIT terraform plan
+TF_VAR_commit=$SHORT_COMMIT terraform apply
+popd
+pushd $BUILD_DIR/terraform/backends
+rm -rf .terraform
+terraform init
+TF_VAR_commit=$SHORT_COMMIT terraform plan
+TF_VAR_commit=$SHORT_COMMIT terraform apply
+popd
 pushd $TERRAFORM_DIR
 rm -rf .terraform
 terraform init
