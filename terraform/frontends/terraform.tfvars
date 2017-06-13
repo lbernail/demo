@@ -8,9 +8,9 @@ properties          = "environment:Integration,version:Grey"
 
 health_check_path	= "/index.php"
 
-asg_desired	        = "4"
+asg_desired	        = "2"
 asg_max	            = "4"
-asg_min	            = "4"
+asg_min	            = "2"
 health_check_type	= "EC2"
 health_check_grace_period = "300"
 
