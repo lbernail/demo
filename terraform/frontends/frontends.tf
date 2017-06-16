@@ -86,6 +86,7 @@ resource "aws_autoscaling_group" "web_asg" {
 }
 
 resource "aws_route53_record" "web" {
+    count = "${var.route53_zoneid == "" ? 0: 1}"
     zone_id = "${var.route53_zoneid}"
     name = "${var.dns_alias}"
     type = "A"
