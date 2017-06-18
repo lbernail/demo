@@ -11,6 +11,7 @@ data "terraform_remote_state" "vpc" {
     config {
         bucket = "tfstates"
         key    = "demo/vpc"
+        region = "eu-west-1"
     }
 }
 
@@ -19,6 +20,7 @@ data "terraform_remote_state" "backends" {
     config {
         bucket = "tfstates"
         key    = "demo/backends"
+        region = "eu-west-1"
     }
 }
 
