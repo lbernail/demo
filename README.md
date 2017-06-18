@@ -91,7 +91,7 @@ You can do this by modifying the build_vpc and build_subnet in the vars/travis.j
 ```
 For the VPC and subnet, you can either use the one you created with terraform or use a different build VPC (which could be your default VPC for instance).
 
-You can now build your AMI
+You can now build your AMI:
 ```
 packer build -var-file vars/travis.json -var "site_dir=../site" packer_apache_php.json
 ```
@@ -110,7 +110,7 @@ terraform apply -var web_ami=<ami-id>
 
 ## Integration with Travis
 
-If you have forked the repo on github you can also use the Travis integration. You need to go to travis-ci.org and link your repo and configure it for your environment. For the configuration, you need to edit the .travis.yml file. First, update the following STATE_BUCKET variable to use the bucket you created earlier.
+If you have forked the repo on github you can also use the Travis integration. You need to go to travis-ci.org and link your repo and configure it for your environment. For the configuration, you need to edit the .travis.yml file. First, update the STATE_BUCKET variable to use the bucket you created earlier.
 
 To be able to deploy in your environment, travis will need access to AWS credentials: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. For security purposes, these variables need to be encrypted. You can see the encrypted versions of the credentials I use in the .travis.yml file in the form of the two lines started with "secure:"). To use your credentials, you simply need to use the travis gem:
 ```
@@ -119,3 +119,5 @@ travis encrypt AWS_ACCESS_KEY_ID=<your access key id>
 travis encrypt AWS_SECRET_ACCESS_KEY=<your secret access id>
 ```
 You then need to replace the two "secure:" line in .travis.yml with the ones you generated. You can find more information on encrypted variable on the [travis website](https://docs.travis-ci.com/user/environment-variables/#Defining-encrypted-variables-in-.travis.yml).
+
+Now, every time you push code to the master branch of your repository the frontends stack will be updated. The code of the application is located in the "site" directory. This will only work if the vpc and backends stacks are already deployed.
