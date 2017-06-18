@@ -120,4 +120,6 @@ travis encrypt AWS_SECRET_ACCESS_KEY=<your secret access id>
 ```
 You then need to replace the two "secure:" line in .travis.yml with the ones you generated. You can find more information on encrypted variable on the [travis website](https://docs.travis-ci.com/user/environment-variables/#Defining-encrypted-variables-in-.travis.yml).
 
-Now, every time you push code to the master branch of your repository the frontends stack will be updated. The code of the application is located in the "site" directory. This will only work if the vpc and backends stacks are already deployed.
+Now, every time you push code to the master branch of your repository the frontends stack will be updated: travis will create a new image with packer and run terraform. This will only work if the vpc and backends stacks are already deployed (the frontends stack needs both to work).
+
+If you want to modify the website, the code is located in the "site" directory. 
